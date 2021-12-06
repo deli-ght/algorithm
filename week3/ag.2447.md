@@ -1,0 +1,49 @@
+# ag-2447
+```javascript=
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let input = []
+
+rl.on('line', function (line) {
+    input.push(+line);
+}).on('close', function () {    
+
+    let num = input[0];
+    list = ''
+
+    for (let i = 0 ; i < num; i++){
+        for (let j = 0; j < num; j++){
+            makeStars(i, j, num)
+        }
+        list += "\n"
+    }
+
+    function makeStars(i, j, num){
+
+        if (j % 3 ==1 && i% 3 ==1){
+            list += ' '
+        }else{
+            if(num == 1) list += '*';
+            else makeStars(~~(i/3), ~~(j/3), ~~(num/3))
+        }
+}
+
+    console.log(list)
+    process.exit();
+
+});
+
+```
+
+# 풀이방법
+`~~`를 이용해 내림으로 소수점 부분을 없애주는 방법을 사용해 parseInt대신 이용
+
+만약 star로 전달되는 i, j가 3으로 나눠서 전달되지 않으면
+![](https://i.imgur.com/P3Yb3fa.png)
+이렇게 가운데 출력되지 말아야할 부분이 출력되게 된다.
+**핵심은 ((i/3)%3 == 1) && ((j/3)%3 == 1) 에 해당하는 부분이 별이 그려지지 않는다는 것**
